@@ -18,7 +18,7 @@ import Image from 'next/image';
 
 export default function HeroSlider() {
   const plugin = React.useRef(
-    Autoplay({ delay: 500, stopOnInteraction: false })
+    Autoplay({ delay: 2000, stopOnInteraction: false })
   );
   const images = [ImageTwo, ImageOne];
 

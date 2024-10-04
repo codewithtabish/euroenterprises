@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { ModeToggle } from './ModeToggle';
 import LOGO from '../../assests/headerlogo.svg';
 import Image from 'next/image';
+import HeaderSelector from './CategorySelector';
 
 const Header = () => {
   return (
@@ -64,6 +65,9 @@ const Header = () => {
             className='text-foreground transition-colors hover:text-foreground'
           >
             Settings
+          </Link>
+          <Link href={'#'}>
+            <HeaderSelector />
           </Link>
         </nav>
         <Sheet>
@@ -119,6 +123,7 @@ const Header = () => {
             </nav>
           </SheetContent>
         </Sheet>
+
         <div className='flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4'>
           <form className='ml-auto flex-1 sm:flex-initial'>
             <div className='relative'>
