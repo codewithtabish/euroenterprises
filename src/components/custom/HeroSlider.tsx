@@ -11,16 +11,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import ImageOne from '../../assests/banner-1.webp';
-import ImageTwo from '../../assests/banner-2.webp';
+import ImageOne from '../../assests/one.jpg';
+import ImageTwo from '../../assests/two.jpg';
 // import ImageTwo from './assests/banner-2.webp';
 import Image from 'next/image';
 
 export default function HeroSlider() {
   const plugin = React.useRef(
-    Autoplay({ delay: 1000, stopOnInteraction: false })
+    Autoplay({ delay: 500, stopOnInteraction: false })
   );
-  const images = [ImageOne, ImageTwo];
+  const images = [ImageTwo, ImageOne];
 
   return (
     <Carousel
@@ -40,7 +40,7 @@ export default function HeroSlider() {
                     alt='image image'
                     width={400}
                     height={400}
-                    className='w-full max-h-[400px] object-cover'
+                    className='w-full max-h-[400px] object-cover rounded-lg'
                   />
                 </CardContent>
               </Card>

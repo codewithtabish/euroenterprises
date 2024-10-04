@@ -6,6 +6,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    domains: ['avatar.vercel.sh', 'another-hostname.com'],
+
     remotePatterns: [
       {
         protocol: 'https',
