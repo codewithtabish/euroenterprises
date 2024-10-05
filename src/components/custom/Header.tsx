@@ -56,7 +56,7 @@ const Header = () => {
             href='#'
             className='text-muted-foreground font-bold transition-colors hover:text-foreground '
           >
-            MEN`S
+            PRODUCTS
           </Link>
           <Link
             href='#'
