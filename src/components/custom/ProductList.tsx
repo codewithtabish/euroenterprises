@@ -10,7 +10,7 @@ const ProductList = async () => {
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/product`,
       {
         method: 'GET',
-        cache: 'reload', // You may adjust this based on your caching strategy
+        cache: 'default', // You may adjust this based on your caching strategy
       }
     );
 

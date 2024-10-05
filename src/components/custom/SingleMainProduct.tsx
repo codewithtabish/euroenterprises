@@ -34,7 +34,7 @@ function SingleMainProduct({ product }: { product: any }) {
           alt='my image'
           width={300}
           height={350}
-          className='w-full max-h-[300px] object-fill rounded-md'
+          className='w-full max-h-[250px] min-h-[250px] object-fill rounded-md'
         />
       </CardContent>
       <CardHeader>

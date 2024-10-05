@@ -111,7 +111,7 @@ const Footer = () => {
               <h2 className='title-font font-medium text-gray-600 tracking-widest text-sm mb-3'>
                 CONTACT US
               </h2>
-              <p className='text-gray-600'>Phone: +923169000919</p>
+              <p className='text-gray-600'>Phone: ++923479000919s</p>
               <p className='text-gray-600'>
                 Email: info@shop.codewithtabish.com
               </p>
