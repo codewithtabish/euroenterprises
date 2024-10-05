@@ -1,5 +1,4 @@
 /** @format */
-'use client';
 import { cn } from '@/lib/utils';
 import Marquee from '../ui/marquee';
 import Image from 'next/image';
@@ -43,24 +42,19 @@ const reviews = [
   },
 ];
 
-const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
-
 const ReviewCard = ({
-  img,
   name,
-  username,
-  body,
+  description,
+  image_url,
 }: {
-  img: string;
   name: string;
-  username: string;
-  body: string;
+  description: string;
+  image_url: string;
 }) => {
   return (
     <figure
       className={cn(
-        'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4',
+        'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-2 justify-center  flex flex-col',
         // light styles
         'border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]',
         // dark styles
@@ -70,34 +64,45 @@ const ReviewCard = ({
       <div className='flex flex-row items-center gap-2'>
         <Image
           className='rounded-full'
-          width='32'
-          height='32'
+          width='45'
+          height='46'
           alt=''
-          src={img}
+          src={image_url}
         />
         <div className='flex flex-col'>
           <figcaption className='text-sm font-medium dark:text-white'>
             {name}
           </figcaption>
-          <p className='text-xs font-medium dark:text-white/40'>{username}</p>
+          <p className='text-xs font-medium dark:text-white/40'>{name}</p>
         </div>
       </div>
-      <blockquote className='mt-2 text-sm'>{body}</blockquote>
+      {/* <blockquote className='mt-2 text-sm'>{body}</blockquote> */}
     </figure>
   );
 };
 
-export default function TrustedCompanies() {
+async function TrustedCompanies() {
+  const response = fetch('http://localhost:3000/api/category', {
+    method: 'GET',
+    cache: 'force-cache',
+  });
+  const data = await (await response).json();
+  const { categories } = data;
+  const firstRow = categories.slice(0, categories.length / 2);
+  const secondRow = categories.slice(categories.length / 2);
+
   return (
-    <div className='relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden '>
+    <div className='relative flex  w-full flex-col items-center justify-center overflow-hidden '>
+      {/* {JSON.stringify(categories)} */}
+      {/* <h1 className='text-3xl font-bold'>Categories</h1> */}
       <Marquee
         pauseOnHover
         className='[--duration:20s]'
       >
-        {firstRow.map((review) => (
+        {firstRow.map((category) => (
           <ReviewCard
-            key={review.username}
-            {...review}
+            key={category.id}
+            {...category}
           />
         ))}
       </Marquee>
@@ -106,10 +111,10 @@ export default function TrustedCompanies() {
         pauseOnHover
         className='[--duration:20s]'
       >
-        {secondRow.map((review) => (
+        {secondRow.map((category) => (
           <ReviewCard
-            key={review.username}
-            {...review}
+            key={category.id}
+            {...category}
           />
         ))}
       </Marquee>
@@ -118,3 +123,5 @@ export default function TrustedCompanies() {
     </div>
   );
 }
+
+export default TrustedCompanies;

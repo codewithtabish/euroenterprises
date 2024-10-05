@@ -11,21 +11,21 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import ImageOne from '../../assests/one.jpg';
-import ImageTwo from '../../assests/two.jpg';
+import ImageOne from '../../assests/five.jpg';
+import ImageTwo from '../../assests/six.jpg';
 // import ImageTwo from './assests/banner-2.webp';
 import Image from 'next/image';
 
 export default function HeroSlider() {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: false })
+    Autoplay({ delay: 800, stopOnInteraction: false })
   );
-  const images = [ImageTwo, ImageOne];
+  const images = [ImageOne, ImageTwo];
 
   return (
     <Carousel
       plugins={[plugin.current]}
-      className='w-full overflow-x-hidden max-h-[400px] overflow-y-hidden '
+      className='w-full overflow-x-hidden max-h-[300px] overflow-y-hidden '
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
@@ -38,9 +38,10 @@ export default function HeroSlider() {
                   <Image
                     src={item}
                     alt='image image'
+                    object-cover
                     width={400}
-                    height={400}
-                    className='w-full max-h-[400px] object-cover rounded-lg'
+                    height={200}
+                    className='w-full max-h-[400px] object-fill rounded-lg'
                   />
                 </CardContent>
               </Card>

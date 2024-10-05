@@ -1,5 +1,5 @@
 /** @format */
-
+'use client';
 import { CircleUser, Menu, Package2, Search } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
@@ -15,7 +15,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
 import { ModeToggle } from './ModeToggle';
-import LOGO from '../../assests/headerlogo.svg';
+import LOGO from '../../assests/logo2.png';
 import Image from 'next/image';
 import HeaderSelector from './CategorySelector';
 
