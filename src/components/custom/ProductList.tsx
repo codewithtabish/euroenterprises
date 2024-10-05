@@ -5,7 +5,7 @@ import SingleMainProduct from './SingleMainProduct';
 import { ProductInterface } from '@/types/productInterface';
 
 const ProductList = async () => {
-  const response = fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product`, {
+  const response = fetch(`http://localhost:3000/api/product`, {
     method: 'GET',
     cache: 'reload',
   });

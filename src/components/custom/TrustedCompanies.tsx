@@ -45,13 +45,10 @@ const ReviewCard = ({
 };
 
 async function TrustedCompanies() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/category`,
-    {
-      method: 'GET',
-      cache: 'force-cache',
-    }
-  ).catch(() => null);
+  const response = await fetch(`http://localhost:3000/api/category`, {
+    method: 'GET',
+    cache: 'no-cache',
+  }).catch(() => null);
 
   if (!response) {
     // Handle the error, like returning an empty state or logging
