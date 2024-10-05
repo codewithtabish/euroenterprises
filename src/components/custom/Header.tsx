@@ -22,7 +22,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
 import { ModeToggle } from './ModeToggle';
-import LOGO from '../../assests/logo2.png';
+import LOGO from '../../assests/headerlogo.svg';
 import Image from 'next/image';
 import HeaderSelector from './CategorySelector';
 import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
