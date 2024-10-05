@@ -48,7 +48,7 @@ const TrustedCompanies = async () => {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/category`,
     {
       method: 'GET',
-      cache: 'no-cache', // You may adjust this based on your caching strategy
+      cache: 'reload', // You may adjust this based on your caching strategy
     }
   );
 
