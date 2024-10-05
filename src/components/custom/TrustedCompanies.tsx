@@ -45,12 +45,23 @@ const ReviewCard = ({
 };
 
 async function TrustedCompanies() {
-  const response = fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category`, {
-    method: 'GET',
-    cache: 'force-cache',
-  });
-  const data = await (await response).json();
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/category`,
+    {
+      method: 'GET',
+      cache: 'force-cache',
+    }
+  ).catch(() => null);
+
+  if (!response) {
+    // Handle the error, like returning an empty state or logging
+    console.error('Failed to fetch data');
+    return;
+  }
+
+  const data = await response.json();
   const { categories } = data;
+
   const firstRow = categories.slice(0, categories.length / 2);
   const secondRow = categories.slice(categories.length / 2);
 
