@@ -11,7 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import ImageOne from '../../assests/five.jpg';
+import ImageOne from '../../assests/banner-six.png';
 import ImageTwo from '../../assests/six.jpg';
 // import ImageTwo from './assests/banner-2.webp';
 import Image from 'next/image';
@@ -25,7 +25,7 @@ export default function HeroSlider() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className='w-full overflow-x-hidden max-h-[300px] overflow-y-hidden '
+      className='w-full overflow-x-hidden md:max-h-[300px] max-h-[200px] overflow-y-hidden '
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
@@ -40,7 +40,7 @@ export default function HeroSlider() {
                     alt='image image'
                     width={400}
                     height={200}
-                    className='w-full max-h-[400px] object-fill rounded-lg'
+                    className='w-full md:max-h-[300px] md:min-h-[300px] max-h-[200px] min-h-[200px] object-fill rounded-lg'
                   />
                 </CardContent>
               </Card>

@@ -47,38 +47,43 @@ const Header = () => {
             <span className='sr-only'>Acme Inc</span>
           </Link>
           <Link
-            href='#'
-            className='text-muted-foreground transition-colors hover:text-foreground'
+            href='/'
+            className='text-muted-foreground font-bold transition-colors hover:text-foreground '
           >
-            Dashboard
+            HOME
           </Link>
           <Link
             href='#'
-            className='text-muted-foreground transition-colors hover:text-foreground'
+            className='text-muted-foreground font-bold transition-colors hover:text-foreground '
           >
-            Orders
+            MEN`S
           </Link>
           <Link
             href='#'
-            className='text-muted-foreground transition-colors hover:text-foreground'
+            className='text-muted-foreground font-bold transition-colors hover:text-foreground '
           >
-            Products
+            WOMENS
           </Link>
           <Link
             href='#'
-            className='text-muted-foreground transition-colors hover:text-foreground'
+            className='text-muted-foreground font-bold transition-colors hover:text-foreground '
           >
-            Customers
+            WEARING
           </Link>
           <Link
             href='#'
-            className='text-foreground transition-colors hover:text-foreground'
+            className='text-muted-foreground font-bold transition-colors hover:text-foreground '
           >
-            Settings
+            BEAUTY
           </Link>
-          <Link href={'#'}>
-            <HeaderSelector />
+          <Link
+            href='#'
+            className='text-muted-foreground font-bold transition-colors hover:text-foreground '
+          >
+            KIDS
           </Link>
+
+          <HeaderSelector />
         </nav>
         <Sheet>
           <SheetTrigger asChild>
@@ -104,31 +109,31 @@ const Header = () => {
                 href='#'
                 className='text-muted-foreground hover:text-foreground'
               >
-                Dashboard
+                Home
               </Link>
               <Link
                 href='#'
                 className='text-muted-foreground hover:text-foreground'
               >
-                Orders
+                MEN`S
               </Link>
               <Link
                 href='#'
                 className='text-muted-foreground hover:text-foreground'
               >
-                Products
+                WEARING
               </Link>
               <Link
                 href='#'
                 className='text-muted-foreground hover:text-foreground'
               >
-                Customers
+                BEAUTY
               </Link>
               <Link
                 href='#'
                 className='hover:text-foreground'
               >
-                Settings
+                STUDIO
               </Link>
             </nav>
           </SheetContent>

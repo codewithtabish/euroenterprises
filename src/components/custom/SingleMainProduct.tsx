@@ -27,7 +27,7 @@ import { Badge } from '@/components/ui/badge';
 
 function SingleMainProduct({ product }: { product: any }) {
   return (
-    <Card className='w-[250px] cursor-pointer relative'>
+    <Card className='md:w-[250px] w-[300px] cursor-pointer relative'>
       <CardContent className='p-0'>
         <Image
           src={product?.image_url}
