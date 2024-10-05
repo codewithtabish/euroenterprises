@@ -5,6 +5,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
 import { ClerkProvider } from '@clerk/nextjs';
+import Footer from '@/components/custom/Footer';
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -42,6 +43,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <div>{children}</div>
+            <Footer />
           </ThemeProvider>
         </body>
       </html>
