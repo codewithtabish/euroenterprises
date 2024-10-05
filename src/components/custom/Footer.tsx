@@ -175,7 +175,7 @@ const Footer = () => {
                 className='text-gray-600 ml-1 cursor-pointer '
                 target='_blank'
               >
-                codewithtabish.com
+                ali@euroenterprises.shop
               </a>
             </p>
           </div>
