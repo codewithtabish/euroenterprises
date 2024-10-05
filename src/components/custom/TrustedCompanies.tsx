@@ -55,7 +55,7 @@ const TrustedCompanies = async () => {
   if (!response.ok) {
     console.error('Failed to fetch data:', response.statusText);
     return (
-      <div className='text-center text-red-500'>
+      <div className='text-center text-red-600'>
         Error loading categories. Please try again later.
       </div>
     ); // Display an error message if the fetch fails
