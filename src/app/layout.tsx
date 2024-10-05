@@ -27,7 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{}}>
+    <ClerkProvider
+      publishableKey='pk_test_aGFwcHktZmVsaW5lLTk5LmNsZXJrLmFjY291bnRzLmRldiQ'
+      appearance={{}}
+    >
       <html lang='en'>
         <body
           suppressHydrationWarning
