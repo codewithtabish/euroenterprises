@@ -29,6 +29,7 @@ import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
 
 const Header = () => {
   const { isLoaded, isSignedIn, user: authUser } = useUser();
+  const adminEmail = 'flyoneairservices@gmail.com';
 
   return (
     <div>
@@ -157,11 +158,15 @@ const Header = () => {
             ) : authUser ? (
               <UserButton>
                 <UserButton.MenuItems>
-                  <UserButton.Link
-                    label='Dashboard'
-                    labelIcon={<BriefcaseBusiness size={15} />}
-                    href='/dashboard'
-                  />
+                  {authUser?.primaryEmailAddress?.emailAddress ==
+                    adminEmail && (
+                    <UserButton.Link
+                      label='Dashboard'
+                      labelIcon={<BriefcaseBusiness size={15} />}
+                      href='/dashboard'
+                    />
+                  )}
+
                   <UserButton.Link
                     label='Create Story'
                     labelIcon={<Heart size={15} />}
