@@ -1,6 +1,13 @@
 /** @format */
 'use client';
-import { CircleUser, Menu, Package2, Search } from 'lucide-react';
+import {
+  BriefcaseBusiness,
+  CircleUser,
+  Heart,
+  Menu,
+  Package2,
+  Search,
+} from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '../ui/button';
@@ -18,8 +25,11 @@ import { ModeToggle } from './ModeToggle';
 import LOGO from '../../assests/logo2.png';
 import Image from 'next/image';
 import HeaderSelector from './CategorySelector';
+import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
 
 const Header = () => {
+  const { isLoaded, isSignedIn, user: authUser } = useUser();
+
   return (
     <div>
       <header className='sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6'>
@@ -136,7 +146,47 @@ const Header = () => {
             </div>
           </form>
           <ModeToggle />
-          <DropdownMenu>
+          <div className='sm:flex sm:gap-4 items-center'>
+            <ModeToggle />
+            {!isLoaded ? (
+              <div className='w-6 h-6 animate-spin transition-all rounded-md duration-500 spinner  border-gray-800 dark:border-gray-50 border-2'></div>
+            ) : authUser ? (
+              <UserButton>
+                <UserButton.MenuItems>
+                  <UserButton.Link
+                    label='Dashboard'
+                    labelIcon={<BriefcaseBusiness size={15} />}
+                    href='/dashboard'
+                  />
+                  <UserButton.Link
+                    label='Create Story'
+                    labelIcon={<Heart size={15} />}
+                    href='/create-story'
+                  />
+                  <UserButton.Link
+                    label='Create Blog'
+                    labelIcon={<Heart size={15} />}
+                    href='/create-blog'
+                  />
+                  <UserButton.Link
+                    label='Buy Coins'
+                    labelIcon={<Heart size={15} />}
+                    href='/buy-coins'
+                  />
+                  <UserButton.Action label='manageAccount' />
+                </UserButton.MenuItems>
+              </UserButton>
+            ) : (
+              <Button className='dark:text-white'>
+                <SignInButton
+                  signUpForceRedirectUrl={'/'}
+                  signUpFallbackRedirectUrl={'/'}
+                />
+              </Button>
+            )}
+          </div>
+
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant='secondary'
@@ -155,7 +205,7 @@ const Header = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
         </div>
       </header>
     </div>
