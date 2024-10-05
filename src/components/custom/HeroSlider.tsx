@@ -38,7 +38,6 @@ export default function HeroSlider() {
                   <Image
                     src={item}
                     alt='image image'
-                    object-cover
                     width={400}
                     height={200}
                     className='w-full max-h-[400px] object-fill rounded-lg'

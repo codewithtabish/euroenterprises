@@ -24,13 +24,14 @@ import Image from 'next/image';
 import Autoplay from 'embla-carousel-autoplay';
 import { ScaleIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { ProductInterface } from '@/types/productInterface';
 
-function SingleMainProduct({ product }: { product: any }) {
+function SingleMainProduct({ product }: { product: ProductInterface }) {
   return (
     <Card className='w-[300px] cursor-pointer relative'>
       <CardContent className='p-0'>
         <Image
-          src={product?.image_url}
+          src={product?.image_url || ' '}
           alt='my image'
           width={300}
           height={350}

@@ -2,54 +2,16 @@
 import { cn } from '@/lib/utils';
 import Marquee from '../ui/marquee';
 import Image from 'next/image';
-
-const reviews = [
-  {
-    name: 'Jack',
-    username: '@jack',
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jack',
-  },
-  {
-    name: 'Jill',
-    username: '@jill',
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: 'https://avatar.vercel.sh/jill',
-  },
-  {
-    name: 'John',
-    username: '@john',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/john',
-  },
-  {
-    name: 'Jane',
-    username: '@jane',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jane',
-  },
-  {
-    name: 'Jenny',
-    username: '@jenny',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jenny',
-  },
-  {
-    name: 'James',
-    username: '@james',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/james',
-  },
-];
+import { CategoryInterface } from '@/types/categoryInterface';
 
 const ReviewCard = ({
   name,
-  description,
-  image_url,
+  description = 'No description available', // Fallback if description is undefined
+  image_url = '/default-image.jpg', // Fallback if image_url is undefined
 }: {
   name: string;
-  description: string;
-  image_url: string;
+  description?: string; // Make description optional
+  image_url?: string; // Make image_url optional
 }) => {
   return (
     <figure
@@ -66,17 +28,18 @@ const ReviewCard = ({
           className='rounded-full'
           width='45'
           height='46'
-          alt=''
-          src={image_url}
+          alt={name}
+          src={image_url} // Default image if image_url is missing
         />
         <div className='flex flex-col'>
           <figcaption className='text-sm font-medium dark:text-white'>
             {name}
           </figcaption>
-          <p className='text-xs font-medium dark:text-white/40'>{name}</p>
+          <p className='text-xs font-medium dark:text-white/40'>
+            {description}
+          </p>
         </div>
       </div>
-      {/* <blockquote className='mt-2 text-sm'>{body}</blockquote> */}
     </figure>
   );
 };
@@ -92,17 +55,18 @@ async function TrustedCompanies() {
   const secondRow = categories.slice(categories.length / 2);
 
   return (
-    <div className='relative flex  w-full flex-col items-center justify-center overflow-hidden '>
-      {/* {JSON.stringify(categories)} */}
+    <div className='relative flex w-full flex-col items-center justify-center overflow-hidden'>
       {/* <h1 className='text-3xl font-bold'>Categories</h1> */}
       <Marquee
         pauseOnHover
         className='[--duration:20s]'
       >
-        {firstRow.map((category) => (
+        {firstRow.map((category: CategoryInterface) => (
           <ReviewCard
-            key={category.id}
-            {...category}
+            key={category?.id}
+            name={category.name}
+            description={category.description}
+            image_url={category.image_url}
           />
         ))}
       </Marquee>
@@ -111,10 +75,12 @@ async function TrustedCompanies() {
         pauseOnHover
         className='[--duration:20s]'
       >
-        {secondRow.map((category) => (
+        {secondRow.map((category: CategoryInterface) => (
           <ReviewCard
-            key={category.id}
-            {...category}
+            key={category?.id}
+            name={category.name}
+            description={category.description}
+            image_url={category.image_url}
           />
         ))}
       </Marquee>

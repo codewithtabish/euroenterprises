@@ -170,7 +170,7 @@ export async function GET(request: NextRequest) {
     const processedProducts = products.map((product) => {
       return {
         ...product,
-        additional_images: product.additional_images.includes(',')
+        additional_images: product?.additional_images?.includes(',')
           ? product.additional_images.split(',').map((url) => url.trim()) // Ensure it's properly split and trimmed
           : [product.additional_images], // If it's a single image, make it an array
       };

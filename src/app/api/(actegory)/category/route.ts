@@ -46,7 +46,6 @@ export async function POST(request: NextRequest) {
 
     const newCategory = await db
       .insert(mySchema.Categories)
-      //    @ts-ignore
       .values({
         name: validatedData.name,
         description: validatedData.description,
