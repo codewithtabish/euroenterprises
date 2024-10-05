@@ -160,23 +160,34 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+// Assuming this is your GET method for fetching product data
+
+// Example for product fetching function
+export async function GET(request: NextRequest) {
   try {
-    const response = await db.select().from(mySchema.Products);
-    return NextResponse.json(
-      {
-        status: true,
-        products: response,
-      },
-      { status: 200, statusText: 'OK' }
-    );
+    const products = await db.select().from(mySchema.Products);
+
+    const processedProducts = products.map((product) => {
+      return {
+        ...product,
+        additional_images: product.additional_images.includes(',')
+          ? product.additional_images.split(',').map((url) => url.trim()) // Ensure it's properly split and trimmed
+          : [product.additional_images], // If it's a single image, make it an array
+      };
+    });
+
+    return NextResponse.json({
+      status: true,
+      products: processedProducts,
+    });
   } catch (error) {
+    console.error('Error fetching products:', error);
     return NextResponse.json(
       {
         status: false,
-        error,
+        error: 'Failed to fetch products',
       },
-      { status: 500, statusText: 'failed' }
+      { status: 500 }
     );
   }
 }

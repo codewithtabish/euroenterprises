@@ -15,7 +15,7 @@ export default function Home() {
       <div className=' my-10'>
         <TrustedCompanies />
       </div>
-      <div>
+      <div className=' mx-auto py-10 md:px-0 px-2'>
         <ProductList />
       </div>
       {/* <div>

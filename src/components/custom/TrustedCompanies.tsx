@@ -82,7 +82,7 @@ const ReviewCard = ({
 };
 
 async function TrustedCompanies() {
-  const response = fetch('http://localhost:3000/api/category', {
+  const response = fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/category`, {
     method: 'GET',
     cache: 'force-cache',
   });
