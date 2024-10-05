@@ -176,7 +176,7 @@ const Header = () => {
                 </UserButton.MenuItems>
               </UserButton>
             ) : (
-              <Button className='dark:text-white'>
+              <Button className='dark:bg-gray-800 dark:text-gray-200'>
                 <SignInButton
                   signUpForceRedirectUrl={'/'}
                   signUpFallbackRedirectUrl={'/'}
