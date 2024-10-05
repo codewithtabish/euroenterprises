@@ -147,7 +147,6 @@ const Header = () => {
           </form>
           <ModeToggle />
           <div className='sm:flex sm:gap-4 items-center'>
-            <ModeToggle />
             {!isLoaded ? (
               <div className='w-6 h-6 animate-spin transition-all rounded-md duration-500 spinner  border-gray-800 dark:border-gray-50 border-2'></div>
             ) : authUser ? (

@@ -24,14 +24,13 @@ import Image from 'next/image';
 import Autoplay from 'embla-carousel-autoplay';
 import { ScaleIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { ProductInterface } from '@/types/productInterface';
 
-function SingleMainProduct({ product }: { product: ProductInterface }) {
+function SingleMainProduct({ product }: { product: any }) {
   return (
-    <Card className='w-[300px] cursor-pointer relative'>
+    <Card className='w-[250px] cursor-pointer relative'>
       <CardContent className='p-0'>
         <Image
-          src={product?.image_url || ' '}
+          src={product?.image_url}
           alt='my image'
           width={300}
           height={350}
@@ -39,10 +38,10 @@ function SingleMainProduct({ product }: { product: ProductInterface }) {
         />
       </CardContent>
       <CardHeader>
-        <CardTitle>{product?.name}</CardTitle>
+        <CardTitle className='text-sm font-bold'>{product?.name}</CardTitle>
         <CardDescription>
-          <span className='text-sm font-bold'>PKR {product?.material}</span>
-          <span className='text-sm mt-1 font-bold block '>
+          <span className='text-sm font-bold'> {product?.material}</span>
+          <span className='text-sm mt-1 font-bold block text-orange-800'>
             PKR {product?.price}
           </span>
         </CardDescription>

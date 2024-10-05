@@ -12,12 +12,10 @@ export default function Home() {
     <div>
       <Header />
       <HeroSlider />
-      <div className=' my-10'>
+      <div className=' md:my-10 py-4'>
         <TrustedCompanies />
       </div>
-      <div className=' mx-auto py-10 md:px-0 px-2'>
-        <ProductList />
-      </div>
+
       {/* <div>
         <Image
           src={
@@ -28,6 +26,9 @@ export default function Home() {
           height={300}
         />
       </div> */}
+      <div className='  md:py-10 py-3 md:px-0 px-2'>
+        <ProductList />
+      </div>
     </div>
   );
 }
