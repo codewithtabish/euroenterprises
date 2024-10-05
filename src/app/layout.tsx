@@ -28,11 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider
-      publishableKey={
-        process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
-        'pk_test_aGFwcHktZmVsaW5lLTk5LmNsZXJrLmFjY291bnRzLmRldiQ'
-      }
-      appearance={{}}
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || ''}
     >
       <html lang='en'>
         <body
