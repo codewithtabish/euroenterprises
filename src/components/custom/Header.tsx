@@ -158,14 +158,14 @@ const Header = () => {
             ) : authUser ? (
               <UserButton>
                 <UserButton.MenuItems>
-                  {authUser?.primaryEmailAddress?.emailAddress ==
-                    adminEmail && (
-                    <UserButton.Link
-                      label='Dashboard'
-                      labelIcon={<BriefcaseBusiness size={15} />}
-                      href='/dashboard'
-                    />
-                  )}
+                  {/* {authUser?.primaryEmailAddress?.emailAddress ==
+                    adminEmail && ( */}
+                  <UserButton.Link
+                    label='Dashboard'
+                    labelIcon={<BriefcaseBusiness size={15} />}
+                    href='/dashboard'
+                  />
+                  {/* )} */}
 
                   <UserButton.Link
                     label='Create Story'
