@@ -34,7 +34,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { description } from '../../app/dashboard/categories/_components/CategoriesTable';
+// import { description } from '../../app/dashboard/categories/_components/CategoriesTable';
 
 function SingleMainProduct({ product }: { product: any }) {
   return (
