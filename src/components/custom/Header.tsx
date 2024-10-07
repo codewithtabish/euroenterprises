@@ -171,12 +171,12 @@ const Header = () => {
                     href='/create-story'
                   />
                   <UserButton.Link
-                    label='Create Blog'
+                    label='Cart'
                     labelIcon={<Heart size={15} />}
                     href='/create-blog'
                   />
                   <UserButton.Link
-                    label='Buy Coins'
+                    label='Wishlist'
                     labelIcon={<Heart size={15} />}
                     href='/buy-coins'
                   />
