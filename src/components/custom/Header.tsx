@@ -176,7 +176,7 @@ const Header = () => {
                     href='/create-blog'
                   />
                   <UserButton.Link
-                    label='Wishlist'
+                    label='Products'
                     labelIcon={<Heart size={15} />}
                     href='/buy-coins'
                   />
