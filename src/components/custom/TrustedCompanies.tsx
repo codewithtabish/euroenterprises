@@ -23,17 +23,17 @@ const ReviewCard = ({
     >
       <div className='flex flex-row items-center gap-2'>
         <Image
-          className='rounded-full'
-          width={45} // Changed to number type
-          height={46} // Changed to number type
+          className='rounded-full object-cover min-h-[40px] max-h-[40px]'
+          width={40} // Changed to number type
+          height={40} // Changed to number type
           alt={name}
           src={image_url} // Default image if image_url is missing
         />
         <div className='flex flex-col'>
           <figcaption className='text-sm font-medium dark:text-white'>
-            {name}
+            {name.length > 20 ? name.slice(0, 20) + '...' : name + ''}
           </figcaption>
-          <p className='text-xs font-medium dark:text-white/40'>
+          <p className='text-xs font-medium dark:text-white/40 line-clamp-2'>
             {description}
           </p>
         </div>
@@ -44,13 +44,17 @@ const ReviewCard = ({
 
 const TrustedCompanies = async () => {
   // Fetch categories data directly in the server component
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/category`,
-    {
-      method: 'GET',
-      cache: 'force-cache', // You may adjust this based on your caching strategy
-    }
-  );
+  //   NEXT_PUBLIC_BASE_URL=https://shop.codewithtabish.com
+  // NEXT_PUBLIC_DEVELOPMENT_BASE_URL=http://localhost:3000
+  // NEXT_PUBLIC_DEVELOPMENT_MODEL=true
+
+  const BASE_URL = process.env.NEXT_PUBLIC_DEVELOPMENT_MODEL
+    ? process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
+    : process.env.NEXT_PUBLIC_BASE_URL;
+  const response = await fetch(`${BASE_URL}/api/category`, {
+    method: 'GET',
+    cache: 'reload', // You may adjust this based on your caching strategy
+  });
 
   if (!response.ok) {
     console.error('Failed to fetch data:', response.statusText);

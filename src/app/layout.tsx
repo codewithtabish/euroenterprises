@@ -6,6 +6,9 @@ import './globals.css';
 import { ThemeProvider } from 'next-themes';
 import { ClerkProvider } from '@clerk/nextjs';
 import Footer from '@/components/custom/Footer';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { Toaster } from '@/components/ui/toaster';
+
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -43,8 +46,14 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div>{children}</div>
-            <Footer />
+            <TooltipProvider>
+              <div>
+                {children}
+                <Toaster />
+              </div>
+
+              <Footer />
+            </TooltipProvider>
           </ThemeProvider>
         </body>
       </html>

@@ -22,8 +22,19 @@ import {
 } from '@/components/ui/select';
 import Image from 'next/image';
 import Autoplay from 'embla-carousel-autoplay';
-import { ScaleIcon } from 'lucide-react';
+import {
+  CarTaxiFront,
+  CrosshairIcon,
+  Minus,
+  RemoveFormatting,
+  ScaleIcon,
+  ShoppingCart,
+  ShoppingCartIcon,
+  ShowerHead,
+  Trash2,
+} from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { description } from '../../app/dashboard/categories/_components/CategoriesTable';
 
 function SingleMainProduct({ product }: { product: any }) {
   return (
@@ -34,16 +45,27 @@ function SingleMainProduct({ product }: { product: any }) {
           alt='my image'
           width={300}
           height={350}
-          className='w-full max-h-[250px] min-h-[250px] object-fill rounded-md'
+          className='w-full max-h-[250px] min-h-[250px] object-center rounded-md'
         />
       </CardContent>
-      <CardHeader>
+      <CardHeader className='p-2'>
         <CardTitle className='text-sm font-bold'>{product?.name}</CardTitle>
         <CardDescription>
-          <span className='text-sm font-bold'> {product?.material}</span>
-          <span className='text-sm mt-1 font-bold block text-orange-800'>
-            PKR {product?.price}
+          <span className='block text-sm'>
+            {product?.description?.length > 35
+              ? product?.description.slice(0, 34) + '...'
+              : product?.description}
           </span>
+          <span className='text-sm font-bold'> {product?.material}</span>
+          <div className='flex justify-between items-center mx-2'>
+            <span className='text-sm mt-1 font-bold block text-orange-800'>
+              PKR {product?.price}
+            </span>
+            <div>
+              <ShoppingCart className='w-6 h-6' />
+              <Minus />
+            </div>
+          </div>
         </CardDescription>
       </CardHeader>
       <CardFooter className='flex justify-between p-0'>

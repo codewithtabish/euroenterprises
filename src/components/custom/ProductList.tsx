@@ -6,13 +6,13 @@ import { ProductInterface } from '@/types/productInterface';
 
 const ProductList = async () => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/product`,
-      {
-        method: 'GET',
-        cache: 'default', // You may adjust this based on your caching strategy
-      }
-    );
+    const BASE_URL = process.env.NEXT_PUBLIC_DEVELOPMENT_MODEL
+      ? process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
+      : process.env.NEXT_PUBLIC_BASE_URL;
+    const response = await fetch(`${BASE_URL}/api/product`, {
+      method: 'GET',
+      cache: 'force-cache', // You may adjust this based on your caching strategy
+    });
 
     // Check if the response is okay (status 200-299)
     if (!response || !response.status) {

@@ -6,29 +6,68 @@ import { eq } from 'drizzle-orm';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-// Schema for subcategory validation
-const subcategorySchema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
-  subCattitle: z.string().min(1, { message: 'Subcategory title is required' }),
-  description: z.string().optional(), // Description can be optional
-  image_url: z.string().url().optional(), // Image URL is optional but must be a valid URL
+// Define Zod schema for validation with custom error messages
+const subCategorySchema = z.object({
   category_id: z
-    .number()
+    .number({ invalid_type_error: 'Category ID must be a number' })
     .positive({ message: 'Category ID must be a positive number' }),
-  is_active: z.boolean().optional().default(true), // Defaults to true if not provided
+  category_title_id: z
+    .number({ invalid_type_error: 'Category Title ID must be a number' })
+    .positive({ message: 'Category Title ID must be a positive number' }),
+  description: z.string().min(15, { message: 'Description is required' }), // Ensures description is provided
+  subCatName: z.string().min(1, { message: 'Subcategory title is required' }), // Ensures the title is not empty
+  image_url: z.string().url({ message: 'Invalid image URL' }), // Now required
+  is_active: z.boolean({ message: 'is_active is required' }),
 });
 
-// Combined handler for GET and POST requests
+// GET Method - Fetch Subcategories by Category ID
+// export async function GET(request: NextRequest) {
+//   try {
+//     const { searchParams } = new URL(request.url);
+//     const categoryID = searchParams.get('categoryID');
 
-/** @format */
+//     if (!categoryID) {
+//       return NextResponse.json(
+//         {
+//           status: false,
+//           message: 'categoryID is required in the query parameters.',
+//         },
+//         { status: 400 }
+//       );
+//     }
 
+//     // Fetch subcategories based on categoryID
+//     const subcategories = await db
+//       .select()
+//       .from(mySchema.Subcategories)
+//       .where(eq(mySchema.Subcategories.category_id, parseInt(categoryID, 10)));
+
+//     if (!subcategories.length) {
+//       return NextResponse.json(
+//         {
+//           status: false,
+//           message: 'No subcategories found for this category.',
+//         },
+//         { status: 404 }
+//       );
+//     }
+
+//     return NextResponse.json({ subcategories, status: true }, { status: 200 });
+//   } catch (error) {
+//     console.error('Error fetching subcategories:', error);
+//     return NextResponse.json(
+//       { status: false, error: 'Failed to fetch subcategories' },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// POST Method - Create a New Subcategory
 export async function GET(request: NextRequest) {
   try {
-    // Get the categoryID from the query parameters
     const { searchParams } = new URL(request.url);
     const categoryID = searchParams.get('categoryID');
 
-    // If categoryID is missing, return a 400 error
     if (!categoryID) {
       return NextResponse.json(
         {
@@ -39,20 +78,23 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Fetch subcategories for the provided categoryID
-    const subcategories = await db
+    // Fetch subcategories based on categoryID and join with SubCategoryTitles
+    const subcategoriesWithTitles = await db
       .select({
-        subcategories: mySchema.Subcategories,
-        category: mySchema.Categories,
+        subcategory: mySchema.Subcategories,
+        title: mySchema.SubCategoryTitles.subCatMainTitle,
       })
       .from(mySchema.Subcategories)
-      .leftJoin(
-        mySchema.Categories,
-        eq(mySchema.Subcategories.category_id, mySchema.Categories.id)
+      .innerJoin(
+        mySchema.SubCategoryTitles,
+        eq(
+          mySchema.Subcategories.category_title_id,
+          mySchema.SubCategoryTitles.id
+        )
       )
       .where(eq(mySchema.Subcategories.category_id, parseInt(categoryID, 10)));
 
-    if (!subcategories.length) {
+    if (!subcategoriesWithTitles.length) {
       return NextResponse.json(
         {
           status: false,
@@ -62,32 +104,41 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Remove redundant subcategories nesting
-    const formattedSubcategories = subcategories.map((item) => ({
-      id: item.subcategories.id,
-      name: item.subcategories.name,
-      subCattitle: item.subcategories.subCattitle,
-      description: item.subcategories.description,
-      image_url: item.subcategories.image_url,
-      is_active: item.subcategories.is_active,
-      created_at: item.subcategories.created_at,
-      updated_at: item.subcategories.updated_at,
+    // Combine subcategory and title into a single object
+    const combinedResponse = subcategoriesWithTitles.map((item) => ({
+      ...item.subcategory, // Include all subcategory fields
+      title: item.title, // Add title field
     }));
+
+    // Fetch all titles related to this category
+    const allTitles = await db
+      .select({
+        title: mySchema.SubCategoryTitles.subCatMainTitle,
+      })
+      .from(mySchema.SubCategoryTitles)
+      .innerJoin(
+        mySchema.Subcategories,
+        eq(
+          mySchema.SubCategoryTitles.id,
+          mySchema.Subcategories.category_title_id
+        )
+      )
+      .where(eq(mySchema.Subcategories.category_id, parseInt(categoryID, 10)));
+
+    const titlesArray = allTitles.map((item) => item.title); // Extract title strings
 
     return NextResponse.json(
       {
-        subcategories: formattedSubcategories,
+        subcategories: combinedResponse, // Return the combined array
+        titles: titlesArray, // Return array of titles
         status: true,
       },
       { status: 200 }
     );
-  } catch (error: unknown) {
+  } catch (error) {
     console.error('Error fetching subcategories:', error);
     return NextResponse.json(
-      {
-        status: false,
-        error: 'Failed to fetch subcategories',
-      },
+      { status: false, error: 'Failed to fetch subcategories' },
       { status: 500 }
     );
   }
@@ -96,39 +147,59 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const requestBody = await request.json();
+    console.log('Request Body:', requestBody);
 
-    // Validate the request body against the schema
-    const validatedData = subcategorySchema.parse(requestBody);
+    // Validate the request body
+    const validatedData = subCategorySchema.parse(requestBody);
 
-    // Ensure the referenced category exists
-    const categoryExists = await db
-      .select()
-      .from(mySchema.Categories)
-      .where(eq(mySchema.Categories.id, validatedData.category_id))
-      .limit(1);
+    // Check if the category and category title exist
+    const [categoryExists, categoryTitleExists] = await Promise.all([
+      db
+        .select()
+        .from(mySchema.Categories)
+        .where(eq(mySchema.Categories.id, validatedData.category_id))
+        .limit(1),
+      db
+        .select()
+        .from(mySchema.SubCategoryTitles)
+        .where(
+          eq(mySchema.SubCategoryTitles.id, validatedData.category_title_id)
+        )
+        .limit(1),
+    ]);
 
     if (!categoryExists.length) {
       return NextResponse.json(
         {
           status: false,
-          error: 'Invalid category ID. Category does not exist.',
+          message: 'Invalid category ID. Category does not exist.',
         },
         { status: 400 }
       );
     }
 
-    // Insert new subcategory into the database
+    if (!categoryTitleExists.length) {
+      return NextResponse.json(
+        {
+          status: false,
+          message: 'Invalid category title ID. Category title does not exist.',
+        },
+        { status: 400 }
+      );
+    }
+
+    // Insert the new subcategory
     const newSubcategory = await db
       .insert(mySchema.Subcategories)
       .values({
-        name: (validatedData.name as string) || '',
-        subCattitle: (validatedData.subCattitle as string) || '',
-        description: (validatedData.description as string) || '', // Default to an empty string if no description
-        image_url: validatedData.image_url || null, // Allow null for optional image URL
-        category_id: validatedData.category_id || 0,
-        is_active: (validatedData.is_active as boolean) || true,
+        category_id: validatedData.category_id,
+        category_title_id: validatedData.category_title_id,
+        subCatName: validatedData.subCatName,
+        image_url: validatedData.image_url, // Required field
+        description: validatedData.description || null,
+        is_active: validatedData.is_active,
       })
-      .returning(); // Return the newly inserted subcategory
+      .returning();
 
     return NextResponse.json(
       {
@@ -140,10 +211,14 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
+      const errorMessages = error.errors.map((err) => {
+        return `${err.path.join('.')} - ${err.message}`;
+      });
+
       return NextResponse.json(
         {
           status: false,
-          error: error.errors.map((err) => err.message).join(', '), // Collect validation errors
+          error: errorMessages.join(', '),
         },
         { status: 400 }
       );
@@ -151,10 +226,149 @@ export async function POST(request: NextRequest) {
 
     console.error('Error creating subcategory:', error);
     return NextResponse.json(
-      {
-        status: false,
-        error: 'Failed to create subcategory',
-      },
+      { status: false, error: 'Failed to create subcategory' },
+      { status: 500 }
+    );
+  }
+}
+
+// PUT Method - Update Subcategory by ID
+export async function PUT(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json(
+        { status: false, message: 'ID is required in the query parameters.' },
+        { status: 400 }
+      );
+    }
+
+    const requestBody = await request.json();
+    console.log('Update Request Body:', requestBody);
+
+    // Validate input data against the schema, allowing partial updates
+    const validatedData = subCategorySchema.partial().parse(requestBody);
+
+    // Check if the subcategory exists
+    const subcategoryExists = await db
+      .select()
+      .from(mySchema.Subcategories)
+      .where(eq(mySchema.Subcategories.id, parseInt(id, 10)))
+      .limit(1);
+
+    if (!subcategoryExists.length) {
+      return NextResponse.json(
+        { status: false, message: 'Subcategory not found.' },
+        { status: 404 }
+      );
+    }
+
+    // Check for missing fields
+    const missingFields = [];
+    const requiredFields = [
+      'category_id',
+      'category_title_id',
+      'subCatName',
+      'image_url',
+      'description',
+      'is_active',
+    ];
+
+    for (const field of requiredFields) {
+      if (!(field in validatedData)) {
+        missingFields.push(field);
+      }
+    }
+
+    if (missingFields.length) {
+      return NextResponse.json(
+        {
+          status: false,
+          message: `Missing fields: ${missingFields.join(', ')}`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Update the subcategory with provided fields
+    await db
+      .update(mySchema.Subcategories)
+      .set({
+        category_id: validatedData.category_id,
+        category_title_id: validatedData.category_title_id,
+        subCatName: validatedData.subCatName,
+        image_url: validatedData.image_url,
+        description: validatedData.description,
+        is_active: validatedData.is_active,
+      })
+      .where(eq(mySchema.Subcategories.id, parseInt(id, 10)));
+
+    return NextResponse.json(
+      { status: true, message: 'Subcategory updated successfully.' },
+      { status: 200 }
+    );
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const errorMessages = error.errors.map(
+        (err) => `${err.path.join('.')} - ${err.message}`
+      );
+
+      return NextResponse.json(
+        { status: false, error: errorMessages.join(', ') },
+        { status: 400 }
+      );
+    }
+
+    console.error('Error updating subcategory:', error);
+    return NextResponse.json(
+      { status: false, error: 'Failed to update subcategory' },
+      { status: 500 }
+    );
+  }
+}
+
+// DELETE Method - Remove Subcategory by ID
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json(
+        { status: false, message: 'ID is required in the query parameters.' },
+        { status: 400 }
+      );
+    }
+
+    // Check if the subcategory exists
+    const subcategoryExists = await db
+      .select()
+      .from(mySchema.Subcategories)
+      .where(eq(mySchema.Subcategories.id, parseInt(id, 10)))
+      .limit(1);
+
+    if (!subcategoryExists.length) {
+      return NextResponse.json(
+        { status: false, message: 'Subcategory not found.' },
+        { status: 404 }
+      );
+    }
+
+    // Delete the subcategory
+    await db
+      .delete(mySchema.Subcategories)
+      .where(eq(mySchema.Subcategories.id, parseInt(id, 10)));
+
+    return NextResponse.json(
+      { status: true, message: 'Subcategory deleted successfully.' },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Error deleting subcategory:', error);
+    return NextResponse.json(
+      { status: false, error: 'Failed to delete subcategory' },
       { status: 500 }
     );
   }

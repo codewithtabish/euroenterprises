@@ -1,19 +1,13 @@
 /** @format */
 
 import React from 'react';
+import DashboardSidebar from './_components/DashboardSidebar';
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio quaerat
-        eligendi est rerum nisi deleniti beatae, nostrum cum ipsam eveniet
-        explicabo corporis temporibus, possimus maiores natus corrupti,
-        praesentium perspiciatis libero. Lorem ipsum dolor sit, amet consectetur
-        adipisicing elit. Optio quaerat eligendi est rerum nisi deleniti beatae,
-        nostrum cum ipsam eveniet explicabo corporis temporibus, possimus
-        maiores natus corrupti, praesentium perspiciatis libero.
-      </p>
+    <div className=''>
+      <DashboardSidebar />
+      <div className='max-w-5xl mx-auto'>{children}</div>
     </div>
   );
 };
