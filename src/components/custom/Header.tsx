@@ -156,6 +156,7 @@ const Header = () => {
             {!isLoaded ? (
               <div className='w-6 h-6 animate-spin transition-all rounded-md duration-500 spinner  border-gray-800 dark:border-gray-50 border-2'></div>
             ) : authUser ? (
+              // added dashboard
               <UserButton>
                 <UserButton.MenuItems>
                   <UserButton.Link
