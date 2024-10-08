@@ -85,6 +85,7 @@ const AllCategoriesBox = ({ setCategoryID }: any) => {
 
                       return (
                         <SelectItem
+                          key={index}
                           //   onSelect={() => alert('this')}
                           value={cat?.name}
                         >

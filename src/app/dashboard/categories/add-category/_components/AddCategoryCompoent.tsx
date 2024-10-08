@@ -29,8 +29,8 @@ const AddCategoryCompoent = () => {
   // State for form inputs
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [categoryStatus, setCategoryStatus] = useState<any>();
-  const [catData, setcatData] = useState<any>();
+  const [categoryStatus, setCategoryStatus] = useState<string>();
+  // const [catData, setcatData] = useState<any>();
   const [showCelebration, setShowCelebration] = useState<boolean>(false);
   const { toast } = useToast();
 
@@ -49,7 +49,7 @@ const AddCategoryCompoent = () => {
   // Color Handling
 
   // Product Data Submission (Form Submission)
-  const handleAddProduct = async (e: any) => {
+  const handleAddProduct = async (e: React.FocusEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Prepare the data object
@@ -95,7 +95,7 @@ const AddCategoryCompoent = () => {
 
       // Handle success
       if (data && data.status) {
-        setcatData(categoryData);
+        // setcatData(categoryData);
         setShowCelebration(true); // Assuming this is a UI effect
         toast({
           title: 'Category added successfully!',
@@ -111,7 +111,7 @@ const AddCategoryCompoent = () => {
           action: <ToastAction altText='Try again'>Try again</ToastAction>,
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Handle network or unexpected errors
       console.error('Error adding category:', error);
       toast({
@@ -272,17 +272,3 @@ const AddCategoryCompoent = () => {
 };
 
 export default AddCategoryCompoent;
-
-//   category_id: z
-//     .number({ invalid_type_error: 'Category ID must be a number' })
-//     .positive({ message: 'Category ID must be a positive number' }), // Ensures the number is positive and non-zero
-//   subCatMainTitle: z
-//     .string()
-//     .min(1, { message: 'Subcategory title is required' }), // Ensures the string is not empty
-//   image_url: z
-//     .string()
-//     .url({ message: 'Invalid image URL' })
-//     .min(1, { message: 'Image URL is required' }), // Ensures the image URL is provided and valid
-//   subCatMaindescription: z
-//     .string()
-//     .min(1, { message: 'subCatMaindescription  is required' }),
