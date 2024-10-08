@@ -15,7 +15,7 @@ const geistSans = localFont({
   weight: '100 900',
 });
 const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
+  src: './fonts/GeistMonoVF.woff', 
   variable: '--font-geist-mono',
   weight: '100 900',
 });
@@ -60,3 +60,15 @@ export default function RootLayout({
     </ClerkProvider>
   );
 }
+
+// DATABASE_URL=postgresql://neondb_owner:zdZ9qE3kWaUm@ep-damp-poetry-a7ofxgk8.ap-southeast-2.aws.neon.tech/euroenterprises?sslmode=require
+
+// NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_aGFwcHktZmVsaW5lLTk5LmNsZXJrLmFjY291bnRzLmRldiQ
+// CLERK_SECRET_KEY=sk_test_rwscj9bO4gAzMKOGxZh4rOQ9i1D9sp8bo4TiFQH7NT
+
+// NEXT_PUBLIC_BASE_URL=https://shop.codewithtabish.com
+// NEXT_PUBLIC_DEVELOPMENT_BASE_URL=http://localhost:3000
+// NEXT_PUBLIC_DEVELOPMENT_MODEL=true
+
+// NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+// NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up

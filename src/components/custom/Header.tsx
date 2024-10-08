@@ -128,7 +128,7 @@ const Header = () => {
                 href='#'
                 className='text-muted-foreground hover:text-foreground'
               >
-                BEAUTY
+              Electroics
               </Link>
               <Link
                 href='#'
