@@ -43,18 +43,16 @@ const ReviewCard = ({
 };
 
 const TrustedCompanies = async () => {
-  // // Fetch categories data directly in the server component
-  // //   NEXT_PUBLIC_BASE_URL=https://shop.codewithtabish.com
-  // // NEXT_PUBLIC_DEVELOPMENT_BASE_URL=http://localhost:3000
-  // // NEXT_PUBLIC_DEVELOPMENT_MODEL=true
-
-  const BASE_URL = process.env.NEXT_PUBLIC_DEVELOPMENT_MODEL
+  const BASE_URL = process.env.NEXT_PUBLIC_DEVELOPMENT_MODE
     ? process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
     : process.env.NEXT_PUBLIC_BASE_URL;
-  const response = await fetch(`https://shop.codewithtabish.com/api/category`, {
-    method: 'GET',
-    cache: 'reload', // You may adjust this based on your caching strategy
-  });
+  const response = await fetch(
+    `https://online.euroenterprises.shop/api/category`,
+    {
+      method: 'GET',
+      cache: 'default', // You may adjust this based on your caching strategy
+    }
+  );
 
   if (!response.status || !response.ok) {
     console.error('Failed to fetch data:', response.statusText);
