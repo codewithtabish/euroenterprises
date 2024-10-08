@@ -76,13 +76,18 @@ const AddCategoryCompoent = () => {
       const BASE_URL = process.env.NEXT_PUBLIC_DEVELOPMENT_MODEL
         ? process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
         : process.env.NEXT_PUBLIC_BASE_URL;
-      const response = await fetch(`${BASE_URL}/api/category`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(categoryData), // Send the category data as a JSON string
-      });
+      // `https://online.euroenterprises.shop/api/product`,
+
+      const response = await fetch(
+        `https://online.euroenterprises.shop/api/category`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(categoryData), // Send the category data as a JSON string
+        }
+      );
 
       // Parse the response JSON
       const data = await response.json();
