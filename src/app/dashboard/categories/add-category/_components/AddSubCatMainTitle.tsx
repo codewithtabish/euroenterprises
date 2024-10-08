@@ -28,9 +28,7 @@ const AddSubCatMainTitle = () => {
   const { toast } = useToast();
 
   // Image Handling
-  const handlesubMainTtitleImageChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handlesubMainTtitleImageChange = (e: unknown) => {
     const file = e.target.files?.[0];
     if (file) {
       setsubMainTtitleImage(URL.createObjectURL(file)); // Preview image
@@ -40,8 +38,7 @@ const AddSubCatMainTitle = () => {
   const handleRemovesubMainTtitleImage = () => {
     setsubMainTtitleImage(null); // Remove image
   };
-
-  const handleAddProduct = async (e: any) => {
+  const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Prepare the data object
@@ -88,7 +85,7 @@ const AddSubCatMainTitle = () => {
 
       // Handle success
       if (data && data.status) {
-        setcatData(categoryData);
+        // setcatData(categoryData);
         setShowCelebration(true); // Assuming this is a UI effect
         toast({
           title: 'Category added successfully!',
@@ -104,7 +101,7 @@ const AddSubCatMainTitle = () => {
           action: <ToastAction altText='Try again'>Try again</ToastAction>,
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Handle network or unexpected errors
       console.error('Error adding category:', error);
       toast({
