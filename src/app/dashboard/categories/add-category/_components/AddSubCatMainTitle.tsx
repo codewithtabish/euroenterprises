@@ -3,21 +3,12 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { X, Upload } from 'lucide-react'; // Importing cross and upload icons
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
-import CelebrationComponent from '@/app/dashboard/_components/CelebrationComponent';
-import axios from 'axios';
 import { useState } from 'react';
 import AllCategoriesBox from './AllCategoriesBox';
 
@@ -29,28 +20,12 @@ const AddSubCatMainTitle = () => {
   // State for form inputs
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [categoryStatus, setCategoryStatus] = useState<any>();
-  const [catData, setcatData] = useState<any>();
+  // const [categoryStatus, setCategoryStatus] = useState<any>();
+  // const [catData, setcatData] = useState<any>();
   const [showCelebration, setShowCelebration] = useState<boolean>(false);
-  const [categoryID, setCategoryID] = useState<any>();
+  const [categoryID, setCategoryID] = useState<number>();
   const [categoriesLoaing, setcategoriesLoaing] = useState<boolean>(false);
   const { toast } = useToast();
-
-  //   const subCategoryTitleSchema = z.object({
-  //   category_id: z
-  //     .number({ invalid_type_error: 'Category ID must be a number' })
-  //     .positive({ message: 'Category ID must be a positive number' }), // Ensures the number is positive and non-zero
-  //   subCatMainTitle: z
-  //     .string()
-  //     .min(1, { message: 'Subcategory title is required' }), // Ensures the string is not empty
-  //   image_url: z
-  //     .string()
-  //     .url({ message: 'Invalid image URL' })
-  //     .min(1, { message: 'Image URL is required' }), // Ensures the image URL is provided and valid
-  //   subCatMaindescription: z
-  //     .string()
-  //     .min(1, { message: 'subCatMaindescription  is required' }),
-  // });
 
   // Image Handling
   const handlesubMainTtitleImageChange = (
@@ -66,9 +41,6 @@ const AddSubCatMainTitle = () => {
     setsubMainTtitleImage(null); // Remove image
   };
 
-  // Color Handling
-
-  // Product Data Submission (Form Submission)
   const handleAddProduct = async (e: any) => {
     e.preventDefault();
 
@@ -79,7 +51,7 @@ const AddSubCatMainTitle = () => {
       subCatMaindescription: description,
       image_url:
         'https://assets.myntassets.com/dpr_2,q_60,w_210,c_limit,fl_progressive/assets/images/28219632/2024/3/12/2f53aaab-40e1-4c5b-8148-6ad150e5f4341710256687634CampusSutraMenClassicOpaqueCheckedCasualShirt2.jpg', // Assuming this is mapped to image_url
-      status: categoryStatus, // Assuming this is mapped to status
+      // status: categoryStatus, // Assuming this is mapped to status
     };
 
     // Check for missing fields and display toast if any are missing
@@ -93,7 +65,7 @@ const AddSubCatMainTitle = () => {
     }
 
     try {
-      setcatData(categoryData);
+      // setcatData(categoryData);
       return;
 
       // Determine the correct base URL based on the environment
