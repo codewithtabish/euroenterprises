@@ -43,68 +43,75 @@ const ReviewCard = ({
 };
 
 const TrustedCompanies = async () => {
-  // Fetch categories data directly in the server component
-  //   NEXT_PUBLIC_BASE_URL=https://shop.codewithtabish.com
-  // NEXT_PUBLIC_DEVELOPMENT_BASE_URL=http://localhost:3000
-  // NEXT_PUBLIC_DEVELOPMENT_MODEL=true
+  // // Fetch categories data directly in the server component
+  // //   NEXT_PUBLIC_BASE_URL=https://shop.codewithtabish.com
+  // // NEXT_PUBLIC_DEVELOPMENT_BASE_URL=http://localhost:3000
+  // // NEXT_PUBLIC_DEVELOPMENT_MODEL=true
 
-  const BASE_URL = process.env.NEXT_PUBLIC_DEVELOPMENT_MODEL
-    ? process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
-    : process.env.NEXT_PUBLIC_BASE_URL;
-  const response = await fetch(`${BASE_URL}/api/category`, {
-    method: 'GET',
-    cache: 'reload', // You may adjust this based on your caching strategy
-  });
+  // const BASE_URL = process.env.NEXT_PUBLIC_DEVELOPMENT_MODEL
+  //   ? process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
+  //   : process.env.NEXT_PUBLIC_BASE_URL;
+  // const response = await fetch(`${BASE_URL}/api/category`, {
+  //   method: 'GET',
+  //   cache: 'reload', // You may adjust this based on your caching strategy
+  // });
 
-  if (!response.ok) {
-    console.error('Failed to fetch data:', response.statusText);
-    return (
-      <div className='text-center text-red-600'>
-        Error loading categories. Please try again later.
-      </div>
-    ); // Display an error message if the fetch fails
-  }
+  // if (!response.ok) {
+  //   console.error('Failed to fetch data:', response.statusText);
+  //   return (
+  //     <div className='text-center text-red-600'>
+  //       Error loading categories. Please try again later.
+  //     </div>
+  //   ); // Display an error message if the fetch fails
+  // }
 
-  const { categories }: { categories: CategoryInterface[] } =
-    await response.json();
+  // const { categories }: { categories: CategoryInterface[] } =
+  //   await response.json();
 
-  const halfLength = Math.ceil(categories.length / 2); // Use ceil for odd-length arrays
-  const firstRow = categories.slice(0, halfLength);
-  const secondRow = categories.slice(halfLength);
-
+  // const halfLength = Math.ceil(categories.length / 2); // Use ceil for odd-length arrays
+  // const firstRow = categories.slice(0, halfLength);
+  // const secondRow = categories.slice(halfLength);
   return (
-    <div className='relative flex w-full flex-col items-center justify-center overflow-hidden'>
-      <Marquee
-        pauseOnHover
-        className='[--duration:20s]'
-      >
-        {firstRow.map((category) => (
-          <ReviewCard
-            key={category?.id}
-            name={category.name}
-            description={category.description}
-            image_url={category.image_url}
-          />
-        ))}
-      </Marquee>
-      <Marquee
-        reverse
-        pauseOnHover
-        className='[--duration:20s]'
-      >
-        {secondRow.map((category) => (
-          <ReviewCard
-            key={category?.id}
-            name={category.name}
-            description={category.description}
-            image_url={category.image_url}
-          />
-        ))}
-      </Marquee>
-      <div className='pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background'></div>
-      <div className='pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background'></div>
+    <div>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum quaerat
+      voluptatum hic provident, doloribus nihil reiciendis exercitationem
+      dolorum? Consequuntur, eius aspernatur! Optio iste eveniet sequi,
+      molestiae quibusdam velit eos tempore!
     </div>
   );
+  // return (
+  //   <div className='relative flex w-full flex-col items-center justify-center overflow-hidden'>
+  //     <Marquee
+  //       pauseOnHover
+  //       className='[--duration:20s]'
+  //     >
+  //       {firstRow.map((category) => (
+  //         <ReviewCard
+  //           key={category?.id}
+  //           name={category.name}
+  //           description={category.description}
+  //           image_url={category.image_url}
+  //         />
+  //       ))}
+  //     </Marquee>
+  //     <Marquee
+  //       reverse
+  //       pauseOnHover
+  //       className='[--duration:20s]'
+  //     >
+  //       {secondRow.map((category) => (
+  //         <ReviewCard
+  //           key={category?.id}
+  //           name={category.name}
+  //           description={category.description}
+  //           image_url={category.image_url}
+  //         />
+  //       ))}
+  //     </Marquee>
+  //     <div className='pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background'></div>
+  //     <div className='pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background'></div>
+  //   </div>
+  // );
 };
 
 export default TrustedCompanies;
