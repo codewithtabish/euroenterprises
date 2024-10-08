@@ -34,8 +34,8 @@ const ReviewCard = ({
             {name.length > 20 ? name.slice(0, 20) + '...' : name + ''}
           </figcaption>
           <p className='text-xs font-medium dark:text-white/40 line-clamp-2'>
-            {description.length > 20
-              ? description.slice(0, 20) + '...'
+            {description.length > 40
+              ? description.slice(0, 40) + '...'
               : description + ''}
           </p>
         </div>
