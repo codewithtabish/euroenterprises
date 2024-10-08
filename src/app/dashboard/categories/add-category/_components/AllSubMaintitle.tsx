@@ -29,7 +29,7 @@ const AllSubMaintitle = ({ setSubMainTtitleNameID }: any) => {
         ? process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
         : process.env.NEXT_PUBLIC_BASE_URL;
       const response = await fetch(
-        'http://localhost:3000/api/category/cat-sub-main?categoryID=8',
+        'https://online.euroenterprises.shop/api/category/cat-sub-main?categoryID=8',
         // `${BASE_URL}/api/cat-sub-main?categoryID=8`,
         {
           method: 'GET',

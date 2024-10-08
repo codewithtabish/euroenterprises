@@ -29,10 +29,13 @@ const AllCategoriesBox = ({ setCategoryID }: any) => {
       const BASE_URL = process.env.NEXT_PUBLIC_DEVELOPMENT_MODEL
         ? process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
         : process.env.NEXT_PUBLIC_BASE_URL;
-      const response = await fetch(`${BASE_URL}/api/category`, {
-        method: 'GET',
-        cache: 'reload', // You may adjust this based on your caching strategy
-      });
+      const response = await fetch(
+        `https://online.euroenterprises.shop/api/category`,
+        {
+          method: 'GET',
+          cache: 'reload', // You may adjust this based on your caching strategy
+        }
+      );
 
       const { categories }: { categories: any } = await response.json();
       setCategories(categories);
